@@ -57,4 +57,40 @@ public class Graph {
     return count;
   }
 
+  public int highestDegree() {
+    int highest = 0;
+
+    for (int i = 0; i < this.adjMatrix.length; i++) {
+      int degree = this.degree(i);
+      if (highest < degree) {
+        highest = degree;
+      }
+    }
+    return highest;
+  }
+
+  public int lowestDegree() {
+    int lowest = this.adjMatrix.length;
+
+    for (int i = 0; i < this.adjMatrix.length; i++) {
+      int degree = this.degree(i);
+      if (lowest > degree) {
+        lowest = degree;
+      }
+    }
+    return lowest;
+  }
+
+  public Graph complement() {
+    Graph newGraph = new Graph(this.countNodes);
+
+    for (int i = 0; i < this.adjMatrix.length; i++) {
+      for (int j = 0; j < this.adjMatrix.length; j++) {
+        if (this.adjMatrix[i][j] == 0 && i != j) {
+          newGraph.addEdge(i, j, 1);
+        }
+      }
+    }
+    return newGraph;
+  }
 }
