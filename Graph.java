@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 
 public class Graph {
 
@@ -9,6 +13,29 @@ public class Graph {
   public Graph(int CountNodes) {
     this.countNodes = CountNodes;
     this.adjMatrix = new int[CountNodes][CountNodes];
+  }
+
+  public Graph(String fileName) throws IOException {
+    File file = new File(fileName);
+    FileReader reader = new FileReader(file);
+    BufferedReader bufferedReader = new BufferedReader(reader);
+
+    // Read header
+    String[] line = bufferedReader.readLine().split(" ");
+    this.countNodes = (Integer.parseInt(line[0]));
+    int fileLines = (Integer.parseInt(line[1]));
+
+    // Create and fill adjMatrix with read edges
+    this.adjMatrix = new int[this.countNodes][this.countNodes];
+    for (int i = 0; i < fileLines; ++i) {
+      String[] edgeInfo = bufferedReader.readLine().split(" ");
+      int source = Integer.parseInt(edgeInfo[0]);
+      int sink = Integer.parseInt(edgeInfo[1]);
+      int weight = Integer.parseInt(edgeInfo[2]);
+      addEdge(source, sink, weight);
+    }
+    bufferedReader.close();
+    reader.close();
   }
 
   public int getCountNodes() {
@@ -133,6 +160,37 @@ public class Graph {
       }
     }
     return R;
+  }
+
+  public ArrayList<Integer> buscaProfundidade(int s) {
+    int[] desc = new int[this.countNodes];
+    ArrayList<Integer> S = new ArrayList<>();
+    ArrayList<Integer> R = new ArrayList<>();
+    desc[s] = 1;
+    S.add(s);
+    R.add(s);
+
+    while (S.size() > 0) {
+      int u = S.get(S.size() - 1);
+      int exist = existeAdj(u, desc);
+      if (exist != -1) {
+        S.add(exist);
+        R.add(exist);
+        desc[exist] = 1;
+      } else {
+        S.remove(S.size() - 1);
+      }
+    }
+    return R;
+  }
+
+  public int existeAdj(int pos, int[] desc) {
+    for (int i = 0; i < this.adjMatrix[pos].length; i++) {
+      if (this.adjMatrix[pos][i] != 0 && desc[i] == 0) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   public void addUnorientedEdge(int u, int v, int w) {

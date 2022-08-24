@@ -1,5 +1,7 @@
+import java.io.IOException;
+
 class Main {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     // Graph Graph = new Graph(4);
     // Graph.addEdge(0, 1, 3);
     // Graph.addEdge(0, 3, 4);
@@ -27,6 +29,10 @@ class Main {
 
     System.out.println(g1.buscaLargura(7));
     System.out.println("Connectado: " + g1.connected());
+
+    Graph g2 = new Graph("graph1.txt");
+    System.out.println(g2);
+    System.out.println(g2.buscaProfundidade(6));
 
   }
 }
