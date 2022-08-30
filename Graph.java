@@ -123,6 +123,18 @@ public class Graph {
     return newGraph;
   }
 
+  public boolean nanOriented() {
+
+    for (int i = 1; i < this.adjMatrix.length; i++) {
+      for (int j = i + 1; j < this.adjMatrix.length; j++) {
+        if (this.adjMatrix[i][j] != this.adjMatrix[j][i]) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   public float density() {
     return (float) this.countEdges / (this.countNodes * (this.countNodes - 1));
   }
@@ -160,6 +172,23 @@ public class Graph {
       }
     }
     return R;
+  }
+
+  public ArrayList<Integer> buscaProfundidadeREC(int s) {
+    int[] desc = new int[this.countNodes];
+    ArrayList<Integer> R = new ArrayList<>();
+    buscaProfundidadeRECAUX(s, desc, R);
+    return R;
+  }
+
+  public void buscaProfundidadeRECAUX(int s, int[] desc, ArrayList<Integer> R) {
+    desc[s] = 1;
+    R.add(s);
+     for (int v = 0; v < this.adjMatrix[s].length; ++v) {
+      if (this.adjMatrix[s][v] != 0 && desc[v] == 0) {
+        buscaProfundidadeRECAUX(v, desc, R);
+      }
+     }
   }
 
   public ArrayList<Integer> buscaProfundidade(int s) {

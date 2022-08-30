@@ -33,6 +33,7 @@ class Main {
     Graph g2 = new Graph("graph1.txt");
     System.out.println(g2);
     System.out.println(g2.buscaProfundidade(6));
+    System.out.println(g2.buscaProfundidadeREC(6));
 
   }
 }
