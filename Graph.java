@@ -9,6 +9,7 @@ public class Graph {
   private int countNodes;
   private int countEdges;
   private int[][] adjMatrix;
+  private final int MAX_VALUE = 999999999;
 
   public Graph(int CountNodes) {
     this.countNodes = CountNodes;
@@ -184,11 +185,11 @@ public class Graph {
   public void buscaProfundidadeRECAUX(int s, int[] desc, ArrayList<Integer> R) {
     desc[s] = 1;
     R.add(s);
-     for (int v = 0; v < this.adjMatrix[s].length; ++v) {
+    for (int v = 0; v < this.adjMatrix[s].length; ++v) {
       if (this.adjMatrix[s][v] != 0 && desc[v] == 0) {
         buscaProfundidadeRECAUX(v, desc, R);
       }
-     }
+    }
   }
 
   public ArrayList<Integer> buscaProfundidade(int s) {
@@ -211,6 +212,51 @@ public class Graph {
       }
     }
     return R;
+  }
+
+  public void FloydWarshaw() {
+    int[][] dist = new int[this.countNodes][this.countNodes];
+    int[][] pred = new int[this.countNodes][this.countNodes];
+
+    for (int i = 0; i < this.countNodes - 1; i++) {
+      for (int j = 0; j < this.countNodes - 1; j++) {
+        if (i == j) {
+          dist[i][j] = 0;
+        } else if (this.adjMatrix[i][j] != 0) {
+          dist[i][j] = adjMatrix[i][j];
+          pred[i][j] = i;
+        } else {
+          dist[i][j] = this.MAX_VALUE;
+          pred[i][j] = i;
+        }
+      }
+    }
+
+        for (int j = 0; j < this.countNodes - 1; j++) {
+          if (dist[i][j] > dist[i][k] + dist[k][j]) {
+            dist[i][j] = dist[i][k] + dist[k][j];
+            pred[i][j] = dist[k][j];
+          }
+        }
+      }
+    }
+
+    System.out.println("Grafo dist: ");
+    for (int k = 0; k < dist.length; k++) {
+      for (int i = 0; i < dist.length; i++) {
+        System.out.print(dist[k][i] + " ");
+      }
+      System.out.println();
+    }
+
+    System.out.println("Grafo pred: ");
+    for (int k = 0; k < pred.length; k++) {
+      for (int i = 0; i < pred.length; i++) {
+        System.out.print(pred[k][i] + " ");
+      }
+      System.out.println();
+    }
+
   }
 
   public int existeAdj(int pos, int[] desc) {

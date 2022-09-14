@@ -17,23 +17,32 @@ class Main {
     // System.out.println("Lowest degree: " + Graph.lowestDegree());
     // System.out.println(Graph.complement());
 
-    Graph g1 = new Graph(10);
-    g1.addUnorientedEdge(7, 5, 1);
-    g1.addUnorientedEdge(7, 1, 1);
-    g1.addUnorientedEdge(7, 2, 1);
-    g1.addUnorientedEdge(1, 0, 1);
-    g1.addUnorientedEdge(1, 4, 1);
-    g1.addUnorientedEdge(2, 3, 1);
-    g1.addUnorientedEdge(5, 6, 1);
-    g1.addUnorientedEdge(6, 8, 1);
+    // Graph g1 = new Graph(10);
+    // g1.addUnorientedEdge(7, 5, 1);
+    // g1.addUnorientedEdge(7, 1, 1);
+    // g1.addUnorientedEdge(7, 2, 1);
+    // g1.addUnorientedEdge(1, 0, 1);
+    // g1.addUnorientedEdge(1, 4, 1);
+    // g1.addUnorientedEdge(2, 3, 1);
+    // g1.addUnorientedEdge(5, 6, 1);
+    // g1.addUnorientedEdge(6, 8, 1);
 
-    System.out.println(g1.buscaLargura(7));
-    System.out.println("Connectado: " + g1.connected());
+    // System.out.println(g1.buscaLargura(7));
+    // System.out.println("Connectado: " + g1.connected());
 
-    Graph g2 = new Graph("graph1.txt");
-    System.out.println(g2);
-    System.out.println(g2.buscaProfundidade(6));
-    System.out.println(g2.buscaProfundidadeREC(6));
+    // Graph g2 = new Graph("graph1.txt");
+    // System.out.println(g2);
+    // System.out.println(g2.buscaProfundidade(6));
+    // System.out.println(g2.buscaProfundidadeREC(6));
+
+    Graph g1 = new Graph(3);
+    g1.addEdge(0, 2, 6);
+    g1.addEdge(0, 1, 1);
+    g1.addEdge(1, 2, 4);
+    g1.addEdge(2, 1, 3);
+    System.out.println(g1);
+
+    g1.FloydWarshaw();
 
   }
 }
