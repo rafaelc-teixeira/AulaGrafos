@@ -232,6 +232,8 @@ public class Graph {
       }
     }
 
+    for (int k = 0; k < this.countNodes - 1; k++) {
+      for (int i = 0; i < this.countNodes - 1; i++) {
         for (int j = 0; j < this.countNodes - 1; j++) {
           if (dist[i][j] > dist[i][k] + dist[k][j]) {
             dist[i][j] = dist[i][k] + dist[k][j];
